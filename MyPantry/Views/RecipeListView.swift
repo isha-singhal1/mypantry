@@ -11,6 +11,7 @@ struct RecipeListView: View {
     @StateObject var viewModel = RecipeViewModel()
     @State private var showAddRecipe = false
     @State private var showManageCats = false
+    @State private var showReport = false
 
     var body: some View {
         NavigationView {
@@ -29,16 +30,24 @@ struct RecipeListView: View {
             }
             .navigationTitle("Recipes")
             .toolbar {
-                Button(action: { showAddRecipe = true }) {
-                    Image(systemName: "plus")
+                ToolbarItemGroup(placement: .navigationBarTrailing) {
+                    Button(action: { showReport = true }) {
+                        Image(systemName: "doc.text.magnifyingglass")
+                    }
+                    Button(action: { showAddRecipe = true }) {
+                        Image(systemName: "plus")
+                    }
+                    Button { showManageCats = true } label: { Image(systemName: "tag") }
                 }
-                Button { showManageCats = true } label: { Image(systemName: "tag") }
             }
             .sheet(isPresented: $showAddRecipe) {
                 AddRecipeView(viewModel: viewModel)
             }
             .sheet(isPresented: $showManageCats) {
               ManageCategoriesView()
+            }
+            .sheet(isPresented: $showReport) {
+                ReportView()
             }
         }
     }
