@@ -6,6 +6,8 @@ struct RecipeDetailView: View {
     @State private var showDeleteConfirmation = false
     @ObservedObject var viewModel: RecipeViewModel
     @Environment(\.presentationMode) var presentationMode
+    
+    @StateObject private var categoryViewModel = CategoryViewModel()
 
     var body: some View {
         VStack(spacing: 0) {
@@ -31,6 +33,19 @@ struct RecipeDetailView: View {
                                 .fontWeight(.semibold)
                             Spacer()
                             Text("\(recipe.cookTime) mins")
+                        }
+                        
+                        HStack {
+                            Image(systemName: "folder")
+                            Text("Category:")
+                                .fontWeight(.semibold)
+                            Spacer()
+                            Text(
+                                categoryViewModel.categories
+                                  .first { $0.id == recipe.categoryID }?
+                                  .name
+                                  ?? "N/A"
+                            )
                         }
                     }
                     .font(.body)

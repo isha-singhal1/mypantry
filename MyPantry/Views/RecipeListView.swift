@@ -10,6 +10,7 @@ import SwiftUI
 struct RecipeListView: View {
     @StateObject var viewModel = RecipeViewModel()
     @State private var showAddRecipe = false
+    @State private var showManageCats = false
 
     var body: some View {
         NavigationView {
@@ -31,9 +32,13 @@ struct RecipeListView: View {
                 Button(action: { showAddRecipe = true }) {
                     Image(systemName: "plus")
                 }
+                Button { showManageCats = true } label: { Image(systemName: "tag") }
             }
             .sheet(isPresented: $showAddRecipe) {
                 AddRecipeView(viewModel: viewModel)
+            }
+            .sheet(isPresented: $showManageCats) {
+              ManageCategoriesView()
             }
         }
     }
