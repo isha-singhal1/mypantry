@@ -61,8 +61,7 @@ struct RecipeListView: View {
                             .cornerRadius(12)
 
                         // One chip per category
-                        ForEach(categoryViewModel.categories) { category in
-                            Button(category.name) {
+                        ForEach(categoryViewModel.categories) { category in Button(category.name) {
                                 selectedCategoryID = category.id
                             }
                             .padding(.horizontal, 12)
@@ -110,7 +109,7 @@ struct RecipeListView: View {
               ManageCategoriesView()
             }
             .sheet(isPresented: $showReport) {
-                ReportView()
+                ReportView(categoryFilter: selectedCategoryID)
             }
         }
     }
