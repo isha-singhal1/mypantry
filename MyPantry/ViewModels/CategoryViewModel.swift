@@ -17,9 +17,11 @@ class CategoryViewModel: ObservableObject {
     }
 
     func fetchCategories() {
-        db.collection("categories").addSnapshotListener { snapshot, error in
-            guard let documents = snapshot?.documents else {
-                print("Error fetching categories: \(error?.localizedDescription ?? "Unknown error")")
+        db.collection("categories")
+            .order(by: "name")
+            .addSnapshotListener { snapshot, error in
+                guard let documents = snapshot?.documents else {
+                    print("Error fetching categories: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
             self.categories = snapshot?.documents.compactMap {

@@ -78,6 +78,12 @@ struct RecipeListView: View {
                     ForEach(sortedRecipes) { recipe in
                         NavigationLink(destination: RecipeDetailView(recipe: recipe, viewModel: viewModel)) {
                             Text(recipe.name)
+                            Spacer()
+                            if let cat = categoryViewModel.categories .first(where: { $0.id == recipe.categoryID }) {
+                                Text(cat.name)
+                                    .font(.subheadline)
+                                    .foregroundColor(.secondary)
+                            }
                         }
                     }
                     .onDelete { indexSet in
