@@ -15,4 +15,5 @@ struct Recipe: Identifiable, Codable {
     var prepTime: Int
     var cookTime: Int
     var steps: [String]
+    var categoryID: String?
 }
